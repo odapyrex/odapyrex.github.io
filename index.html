@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Conceptos de Filosofía</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #222;
+            /* Fondo más oscuro */
+            color: #fff;
+        }
+
+        .jumbotron {
+            text-align: center;
+            background-color: #333;
+            /* Color de fondo del jumbotron */
+            padding: 20px;
+            /* Aumenta el espacio interior del jumbotron */
+            border-radius: 10px;
+            /* Bordes redondeados para el jumbotron */
+        }
+
+        /* Estilos personalizados para la disposición de los elementos */
+        .concepto-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .concepto-nombre {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="concepto-container">
+                <h1 class="display-4 concepto-nombre" id="concepto">Aquí va el concepto.</h1>
+                <p class="lead" id="significado">Aquí va el significado.</p>
+                <button class="btn btn-primary" onclick="cambiarConcepto()">Cambiar</button>
+                <button class="btn btn-secondary" onclick="mostrarFormulario()">Agregar Nuevo Concepto</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario para agregar nuevos conceptos -->
+    <div id="formularioConcepto" style="display: none;">
+        <h2>Agregar Nuevo Concepto</h2>
+        <form id="nuevoConceptoForm">
+            <div class="form-group">
+                <label for="nuevoConceptoNombre">Nombre del Concepto:</label>
+                <input type="text" class="form-control" id="nuevoConceptoNombre" required>
+            </div>
+            <div class="form-group">
+                <label for="nuevoConceptoSignificado">Significado:</label>
+                <textarea class="form-control" id="nuevoConceptoSignificado" rows="3" required></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="agregarNuevoConcepto()">Agregar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        var conceptos = [
+            { concepto: "Metafísica", significado: "Estudio de la realidad más allá de lo físico." },
+            { concepto: "Ética", significado: "Estudio del comportamiento moral de los individuos." },
+            { concepto: "Epistemología", significado: "Rama de la filosofía que estudia el conocimiento." },
+            // Agrega más conceptos con sus significados aquí
+        ];
+
+        function cambiarConcepto() {
+            var conceptoActual = conceptos[Math.floor(Math.random() * conceptos.length)];
+            document.getElementById('concepto').innerText = conceptoActual.concepto;
+            document.getElementById('significado').innerText = conceptoActual.significado;
+        }
+
+        function mostrarFormulario() {
+            var formulario = document.getElementById('formularioConcepto');
+            formulario.style.display = 'block';
+        }
+
+        function agregarNuevoConcepto() {
+            var nuevoConceptoNombre = document.getElementById('nuevoConceptoNombre').value;
+            var nuevoConceptoSignificado = document.getElementById('nuevoConceptoSignificado').value;
+
+            if (nuevoConceptoNombre && nuevoConceptoSignificado) {
+                // Agrega el nuevo concepto al arreglo
+                conceptos.push({ concepto: nuevoConceptoNombre, significado: nuevoConceptoSignificado });
+
+                // Actualiza la presentación de conceptos
+                cambiarConcepto();
+
+                // Limpia el formulario
+                document.getElementById('nuevoConceptoForm').reset();
+
+                // Oculta el formulario
+                document.getElementById('formularioConcepto').style.display = 'none';
+            } else {
+                alert('Por favor, completa todos los campos.');
+            }
+        }
+
+        window.onload = cambiarConcepto;
+    </script>
+
+</body>
+
+</html>
